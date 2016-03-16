@@ -1,5 +1,7 @@
 package bit.model;
 
+import java.util.List;
+
 public class Client {
     private Integer clientId;
 
@@ -10,6 +12,26 @@ public class Client {
     private String clientUsername;
 
     private Integer clientStatus;
+
+    private List<Order> orders;
+
+    private List<Train> trains;
+
+    public List<Train> getTrains() {
+        return trains;
+    }
+
+    public void setTrains(List<Train> trains) {
+        this.trains = trains;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public Integer getClientId() {
         return clientId;

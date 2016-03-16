@@ -1,6 +1,7 @@
 package bit.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private Integer orderId;
@@ -26,6 +27,26 @@ public class Order {
     private Integer orderTrip;
 
     private Integer orderComment;
+
+    private List<Comment> comments;
+
+    private Train train;
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Integer getOrderId() {
         return orderId;

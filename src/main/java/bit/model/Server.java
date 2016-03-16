@@ -1,5 +1,7 @@
 package bit.model;
 
+import java.util.List;
+
 public class Server {
     private Integer serverId;
 
@@ -20,6 +22,26 @@ public class Server {
     private String serverPhoto;
 
     private Integer serverStation;
+
+    private List<Order> orders;
+
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public Integer getServerId() {
         return serverId;
