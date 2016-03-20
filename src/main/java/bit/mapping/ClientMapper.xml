@@ -12,7 +12,7 @@
     client_id, client_name, client_tel, client_username, client_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from client
     where client_id = #{clientId,jdbcType=INTEGER}
@@ -104,7 +104,6 @@
       <result column="order_money" property="orderMoney" jdbcType="REAL" />
       <result column="order_client" property="orderClient" jdbcType="INTEGER" />
       <result column="order_trip" property="orderTrip" jdbcType="INTEGER" />
-      <result column="order_comment" property="orderComment" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <select id="selectOrderbyClientId" resultMap="OrderResultMap" parameterType="java.lang.Integer" >
@@ -112,47 +111,46 @@
     client.client_username,
     client.client_status,
     client.client_name,
-    `order`.order_comment,
-    `order`.order_trip,
-    `order`.order_client,
-    `order`.order_money,
-    `order`.order_ftime,
-    `order`.order_rtime,
-    `order`.order_ctime,
-    `order`.order_server,
-    `order`.order_type,
-    `order`.order_status,
-    `order`.order_num,
-    `order`.order_id,
+    torder.order_trip,
+    torder.order_client,
+    torder.order_money,
+    torder.order_ftime,
+    torder.order_rtime,
+    torder.order_ctime,
+    torder.order_server,
+    torder.order_type,
+    torder.order_status,
+    torder.order_num,
+    torder.order_id,
     client.client_id
-    FROM client INNER JOIN `order` ON client.client_id = `order`.order_client
+    FROM client INNER JOIN torder ON client.client_id = torder.order_client
     where client_id = #{clientId,jdbcType=INTEGER}
   </select>
 
-    <resultMap type="bit.model.Client" id="TrainResultMap" extends="BaseResultMap">
-        <collection property="trains" javaType="list" ofType="bit.model.Train">
-            <id column="train_id" property="trainId" jdbcType="INTEGER" />
-            <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
-            <result column="train_date" property="trainDate" jdbcType="DATE" />
-            <result column="train_carriage" property="trainCarriage" jdbcType="VARCHAR" />
-            <result column="train_from" property="trainFrom" jdbcType="INTEGER" />
-            <result column="train_to" property="trainTo" jdbcType="INTEGER" />
-            <result column="train_client" property="trainClient" jdbcType="INTEGER" />
-        </collection>
-    </resultMap>
-    <select id="selectTrainbyClientId" resultMap="TrainResultMap" parameterType="java.lang.Integer" >
+  <resultMap type="bit.model.Client" id="TrainResultMap" extends="BaseResultMap">
+    <collection property="trains" javaType="list" ofType="bit.model.Train">
+      <id column="train_id" property="trainId" jdbcType="INTEGER" />
+      <result column="train_num" property="trainNum" jdbcType="VARCHAR" />
+      <result column="train_date" property="trainDate" jdbcType="DATE" />
+      <result column="train_carriage" property="trainCarriage" jdbcType="VARCHAR" />
+      <result column="train_from" property="trainFrom" jdbcType="INTEGER" />
+      <result column="train_to" property="trainTo" jdbcType="INTEGER" />
+      <result column="train_client" property="trainClient" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  <select id="selectTrainbyClientId" resultMap="TrainResultMap" parameterType="java.lang.Integer" >
     SELECT client.client_id,
-	client.client_name,
-	client.client_tel,
-	client.client_username,
-	client.client_status,
-	train.train_id,
-	train.train_num,
-	train.train_date,
-	train.train_carriage,
-	train.train_from,
-	train.train_to,
-	train.train_client
+  client.client_name,
+  client.client_tel,
+  client.client_username,
+  client.client_status,
+  train.train_id,
+  train.train_num,
+  train.train_date,
+  train.train_carriage,
+  train.train_from,
+  train.train_to,
+  train.train_client
     FROM client INNER JOIN train ON client.client_id = train.train_client
     where client_id = #{clientId,jdbcType=INTEGER}
     </select>

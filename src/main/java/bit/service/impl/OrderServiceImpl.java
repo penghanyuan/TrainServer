@@ -30,4 +30,19 @@ public class OrderServiceImpl implements OrderService {
     public Order getTrainbyOrderId(int orderid) {
         return this.orderMapper.selectTrainbyOrderId(orderid);
     }
+
+    @Override
+    public Order getClientbyOrderId(int orderid) {
+        return this.orderMapper.selectClientbyOrderId(orderid);
+    }
+
+    @Override
+    public Order getServerbyOrderId(int orderid) {
+        return this.orderMapper.selectServerbyOrderId(orderid);
+    }
+
+    @Override
+    public List<Order> getOrderbyStatus(int status) {
+        return this.orderMapper.selectOrderbyStatus(status);
+    }
 }

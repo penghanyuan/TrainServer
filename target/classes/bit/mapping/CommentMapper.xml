@@ -9,9 +9,11 @@
     <result column="comm_server" property="commServer" jdbcType="INTEGER" />
     <result column="comm_datetime" property="commDatetime" jdbcType="TIMESTAMP" />
     <result column="comm_status" property="commStatus" jdbcType="INTEGER" />
+    <result column="comm_orderid" property="commOrderid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    comm_id, comm_star, comm_context, comm_client, comm_server, comm_datetime, comm_status
+    comm_id, comm_star, comm_context, comm_client, comm_server, comm_datetime, comm_status, 
+    comm_orderid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +28,10 @@
   <insert id="insert" parameterType="bit.model.Comment" >
     insert into comment (comm_id, comm_star, comm_context, 
       comm_client, comm_server, comm_datetime, 
-      comm_status)
+      comm_status, comm_orderid)
     values (#{commId,jdbcType=INTEGER}, #{commStar,jdbcType=INTEGER}, #{commContext,jdbcType=VARCHAR}, 
       #{commClient,jdbcType=INTEGER}, #{commServer,jdbcType=INTEGER}, #{commDatetime,jdbcType=TIMESTAMP}, 
-      #{commStatus,jdbcType=INTEGER})
+      #{commStatus,jdbcType=INTEGER}, #{commOrderid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="bit.model.Comment" >
     insert into comment
@@ -55,6 +57,9 @@
       <if test="commStatus != null" >
         comm_status,
       </if>
+      <if test="commOrderid != null" >
+        comm_orderid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="commId != null" >
@@ -77,6 +82,9 @@
       </if>
       <if test="commStatus != null" >
         #{commStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commOrderid != null" >
+        #{commOrderid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -101,6 +109,9 @@
       <if test="commStatus != null" >
         comm_status = #{commStatus,jdbcType=INTEGER},
       </if>
+      <if test="commOrderid != null" >
+        comm_orderid = #{commOrderid,jdbcType=INTEGER},
+      </if>
     </set>
     where comm_id = #{commId,jdbcType=INTEGER}
   </update>
@@ -111,7 +122,8 @@
       comm_client = #{commClient,jdbcType=INTEGER},
       comm_server = #{commServer,jdbcType=INTEGER},
       comm_datetime = #{commDatetime,jdbcType=TIMESTAMP},
-      comm_status = #{commStatus,jdbcType=INTEGER}
+      comm_status = #{commStatus,jdbcType=INTEGER},
+      comm_orderid = #{commOrderid,jdbcType=INTEGER}
     where comm_id = #{commId,jdbcType=INTEGER}
   </update>
 </mapper>

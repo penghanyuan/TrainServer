@@ -7,5 +7,5 @@ import bit.model.Train;
  */
 public interface TrainService {
 //    public Train getTrainbyId(int id);
-//    public Train[] getTrainbyClientId(int clientid);
+    public Train getOrderbyTrainId(int trainid);
 }

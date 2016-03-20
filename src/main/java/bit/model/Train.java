@@ -1,6 +1,7 @@
 package bit.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Train {
     private Integer trainId;
@@ -16,6 +17,16 @@ public class Train {
     private Integer trainTo;
 
     private Integer trainClient;
+
+    private List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public Integer getTrainId() {
         return trainId;

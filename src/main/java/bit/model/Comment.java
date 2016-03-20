@@ -17,6 +17,8 @@ public class Comment {
 
     private Integer commStatus;
 
+    private Integer commOrderid;
+
     public Integer getCommId() {
         return commId;
     }
@@ -71,5 +73,13 @@ public class Comment {
 
     public void setCommStatus(Integer commStatus) {
         this.commStatus = commStatus;
+    }
+
+    public Integer getCommOrderid() {
+        return commOrderid;
+    }
+
+    public void setCommOrderid(Integer commOrderid) {
+        this.commOrderid = commOrderid;
     }
 }

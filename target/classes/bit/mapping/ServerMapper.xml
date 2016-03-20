@@ -18,7 +18,7 @@
     server_point, server_photo, server_station
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from server
     where server_id = #{serverId,jdbcType=INTEGER}
@@ -164,33 +164,31 @@
       <result column="order_money" property="orderMoney" jdbcType="REAL" />
       <result column="order_client" property="orderClient" jdbcType="INTEGER" />
       <result column="order_trip" property="orderTrip" jdbcType="INTEGER" />
-      <result column="order_comment" property="orderComment" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <select id="selectOrderbyServerId" resultMap="OrderResultMap" parameterType="java.lang.Integer" >
    SELECT `server`.server_id,
     `server`.server_name,
-	`server`.server_tel,
-	`server`.server_pid,
-	`server`.server_num,
-	`server`.server_password,
-	`server`.server_code,
-	`server`.server_point,
-	`server`.server_photo,
-	`server`.server_station,
-	`order`.order_id,
-	`order`.order_num,
-	`order`.order_status,
-	`order`.order_type,
-	`order`.order_server,
-	`order`.order_ctime,
-	`order`.order_rtime,
-	`order`.order_ftime,
-	`order`.order_money,
-	`order`.order_client,
-	`order`.order_trip,
-	`order`.order_comment
-FROM `order` INNER JOIN `server` ON `order`.order_server = `server`.server_id
+  `server`.server_tel,
+  `server`.server_pid,
+  `server`.server_num,
+  `server`.server_password,
+  `server`.server_code,
+  `server`.server_point,
+  `server`.server_photo,
+  `server`.server_station,
+  `torder`.order_id,
+  `torder`.order_num,
+  `torder`.order_status,
+  `torder`.order_type,
+  `torder`.order_server,
+  `torder`.order_ctime,
+  `torder`.order_rtime,
+  `torder`.order_ftime,
+  `torder`.order_money,
+  `torder`.order_client,
+  `torder`.order_trip,
+FROM `torder` INNER JOIN `server` ON `torder`.order_server = `server`.server_id
     where server_id = #{serverId,jdbcType=INTEGER}
   </select>
 
@@ -207,23 +205,23 @@ FROM `order` INNER JOIN `server` ON `order`.order_server = `server`.server_id
   </resultMap>
   <select id="selectCommentbyServerId" resultMap="CommentResultMap" parameterType="java.lang.Integer" >
     SELECT `server`.server_id,
-	`server`.server_name,
-	`server`.server_tel,
-	`server`.server_pid,
-	`server`.server_num,
-	`server`.server_password,
-	`server`.server_code,
-	`server`.server_point,
-	`server`.server_photo,
-	`server`.server_station,
-	`comment`.comm_id,
-	`comment`.comm_star,
-	`comment`.comm_context,
-	`comment`.comm_client,
-	`comment`.comm_server,
-	`comment`.comm_datetime,
-	`comment`.comm_status,
-	`comment`.comm_orderid
+  `server`.server_name,
+  `server`.server_tel,
+  `server`.server_pid,
+  `server`.server_num,
+  `server`.server_password,
+  `server`.server_code,
+  `server`.server_point,
+  `server`.server_photo,
+  `server`.server_station,
+  `comment`.comm_id,
+  `comment`.comm_star,
+  `comment`.comm_context,
+  `comment`.comm_client,
+  `comment`.comm_server,
+  `comment`.comm_datetime,
+  `comment`.comm_status,
+  `comment`.comm_orderid
     FROM `server` INNER JOIN `comment` ON `server`.server_id = `comment`.comm_server
     where server_id = #{serverId,jdbcType=INTEGER}
   </select>

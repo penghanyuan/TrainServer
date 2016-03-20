@@ -26,11 +26,30 @@ public class Order {
 
     private Integer orderTrip;
 
-    private Integer orderComment;
 
     private List<Comment> comments;
 
     private Train train;
+
+    private Client client;
+
+    private Server server;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
 
     public Train getTrain() {
         return train;
@@ -136,11 +155,5 @@ public class Order {
         this.orderTrip = orderTrip;
     }
 
-    public Integer getOrderComment() {
-        return orderComment;
-    }
 
-    public void setOrderComment(Integer orderComment) {
-        this.orderComment = orderComment;
-    }
 }

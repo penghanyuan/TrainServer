@@ -14,4 +14,6 @@ public interface TrainMapper {
     int updateByPrimaryKeySelective(Train record);
 
     int updateByPrimaryKey(Train record);
+
+    Train selectOrderbyTrainId(int trainid);//防止重复订单
 }
