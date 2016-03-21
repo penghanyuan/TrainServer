@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ClientService {
     public Client getClientbyId(int id);
-    public List<Client> getOrderbyClientId(int clientid);
-    public List<Client> getTrainbyClientId(int clientid);
+    //public List<Client> getOrderbyClientId(int clientid);
+    //public List<Client> getTrainbyClientId(int clientid);
 }

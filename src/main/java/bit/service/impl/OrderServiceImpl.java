@@ -27,22 +27,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getTrainbyOrderId(int orderid) {
-        return this.orderMapper.selectTrainbyOrderId(orderid);
+    public List<Order> getOrderbyClientId(int clentid) {
+        return this.orderMapper.selectOrderbyClientId(clentid);
     }
 
     @Override
-    public Order getClientbyOrderId(int orderid) {
-        return this.orderMapper.selectClientbyOrderId(orderid);
-    }
-
-    @Override
-    public Order getServerbyOrderId(int orderid) {
-        return this.orderMapper.selectServerbyOrderId(orderid);
+    public List<Order> getOrderbyServerId(int serverid) {
+        return this.orderMapper.selectOrderbyServertId(serverid);
     }
 
     @Override
     public List<Order> getOrderbyStatus(int status) {
         return this.orderMapper.selectOrderbyStatus(status);
+    }
+
+    @Override
+    public Order getTrainbyOrderId(int orderid) {
+        return this.orderMapper.selectTrainbyOrderId(orderid);
     }
 }

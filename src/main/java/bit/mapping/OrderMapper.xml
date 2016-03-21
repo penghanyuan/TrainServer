@@ -300,4 +300,36 @@ FROM `torder` INNER JOIN `comment` ON `torder`.order_id = `comment`.comm_orderid
     FROM `torder`
     where order_status = #{status,jdbcType=INTEGER}
   </select>
+    <select id="selectOrderbyClientId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT *,
+        `torder`.order_id,
+        `torder`.order_num,
+        `torder`.order_status,
+        `torder`.order_type,
+        `torder`.order_server,
+        `torder`.order_ctime,
+        `torder`.order_rtime,
+        `torder`.order_ftime,
+        `torder`.order_money,
+        `torder`.order_client,
+        `torder`.order_trip
+        FROM `torder`
+        where order_client = #{cilentid,jdbcType=INTEGER}
+    </select>
+    <select id="selectOrderbyServerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT *,
+        `torder`.order_id,
+        `torder`.order_num,
+        `torder`.order_status,
+        `torder`.order_type,
+        `torder`.order_server,
+        `torder`.order_ctime,
+        `torder`.order_rtime,
+        `torder`.order_ftime,
+        `torder`.order_money,
+        `torder`.order_client,
+        `torder`.order_trip
+        FROM `torder`
+        where order_server = #{serverid,jdbcType=INTEGER}
+    </select>
 </mapper>

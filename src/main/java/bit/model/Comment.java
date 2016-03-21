@@ -1,6 +1,7 @@
 package bit.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
     private Integer commId;
@@ -18,6 +19,16 @@ public class Comment {
     private Integer commStatus;
 
     private Integer commOrderid;
+
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Integer getCommId() {
         return commId;

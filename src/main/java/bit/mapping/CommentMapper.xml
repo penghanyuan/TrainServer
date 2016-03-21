@@ -126,4 +126,11 @@
       comm_orderid = #{commOrderid,jdbcType=INTEGER}
     where comm_id = #{commId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCommentbyServerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from comment
+    where comm_server = #{serverid,jdbcType=INTEGER}
+  </select>
 </mapper>

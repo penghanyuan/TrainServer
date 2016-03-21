@@ -23,10 +23,14 @@ public interface OrderMapper {
     List<Order> selectCommentbyOrderId(int orderid);
 
     Order selectTrainbyOrderId(int orderid);
-
-    Order selectClientbyOrderId(int orderid);
-
-    Order selectServerbyOrderId(int orderid);
+//
+//    Order selectClientbyOrderId(int orderid);
+//
+//    Order selectServerbyOrderId(int orderid);
 
     List<Order> selectOrderbyStatus(int status);
+
+    List<Order> selectOrderbyClientId(int clientid);
+
+    List<Order> selectOrderbyServertId(int serverid);
 }

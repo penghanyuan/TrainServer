@@ -17,15 +17,7 @@ import java.util.List;
 public class ServerServiceImpl implements ServerService {
     @Autowired
     private ServerMapper serverMapper;
-    @Override
-    public List<Server> getOrderbyServerId(int serverid) {
-        return this.serverMapper.selectOrderbyServerId(serverid);
-    }
 
-    @Override
-    public List<Server> getCommentbyServerId(int serverid) {
-        return this.serverMapper.selectCommentbyServerId(serverid);
-    }
 
     @Override
     public int logIn(String tel, String psw) {

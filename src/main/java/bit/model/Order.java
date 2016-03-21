@@ -63,6 +63,16 @@ public class Order {
         return comments;
     }
 
+    public List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }

@@ -17,4 +17,9 @@ public class TrainServiceImpl implements TrainService{
     public Train getOrderbyTrainId(int trainid) {
         return this.trainMapper.selectOrderbyTrainId(trainid);
     }
+
+    @Override
+    public Train getTrainbyId(int id) {
+        return this.trainMapper.selectByPrimaryKey(id);
+    }
 }

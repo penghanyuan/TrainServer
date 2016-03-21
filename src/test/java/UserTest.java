@@ -1,8 +1,5 @@
 import bit.model.*;
-import bit.service.ClientService;
-import bit.service.OrderService;
-import bit.service.ServerService;
-import bit.service.TrainService;
+import bit.service.*;
 import com.alibaba.fastjson.JSON;
 import org.aspectj.weaver.ast.Or;
 import org.junit.runner.RunWith;
@@ -20,7 +17,7 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-mybatis.xml"})
 public class UserTest {
     @Autowired
-    private ServerService serverService;
+    private CommentService commentService;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -29,10 +26,10 @@ public class UserTest {
     public void test1() {
       //  List<Server> user = serverService.getCommentbyServerId(serverService.logIn("12321232321",""));
       //  System.out.println(JSON.toJSONString(user.get(0)));
-        List<Order> order = orderService.getOrderbyStatus(1);
+        List<Comment> order = commentService.getCommentbyServerId(1);
         System.out.println(JSON.toJSONString(order));
 
-        Train train = trainService.getOrderbyTrainId(1);
-        System.out.println(JSON.toJSONString(train));
+//        Train train = trainService.getOrderbyTrainId(1);
+//        System.out.println(JSON.toJSONString(train));
     }
 }

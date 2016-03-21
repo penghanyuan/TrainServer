@@ -23,14 +23,14 @@ public class ClientServiceImpl implements ClientService {
         return  this.clientMapper.selectByPrimaryKey(id);
     }
 
-
-    @Override
-    public List<Client> getOrderbyClientId(int clientid) {
-        return this.clientMapper.selectOrderbyClientId(clientid);
-    }
-
-    @Override
-    public List<Client> getTrainbyClientId(int clientid) {
-        return this.clientMapper.selectTrainbyClientId(clientid);
-    }
+//
+//    @Override
+//    public List<Client> getOrderbyClientId(int clientid) {
+//        return this.clientMapper.selectOrderbyClientId(clientid);
+//    }
+//
+//    @Override
+//    public List<Client> getTrainbyClientId(int clientid) {
+//        return this.clientMapper.selectTrainbyClientId(clientid);
+//    }
 }
