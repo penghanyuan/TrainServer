@@ -22,7 +22,7 @@ public interface OrderMapper {
 
     List<Order> selectCommentbyOrderId(int orderid);
 
-    Order selectTrainbyOrderId(int orderid);
+    //Order selectTrainbyOrderId(int orderid);
 //
 //    Order selectClientbyOrderId(int orderid);
 //
@@ -33,4 +33,5 @@ public interface OrderMapper {
     List<Order> selectOrderbyClientId(int clientid);
 
     List<Order> selectOrderbyServertId(int serverid);
+    List<Order> selectOrderbyTrainId(int orderid);
 }

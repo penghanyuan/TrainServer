@@ -10,4 +10,6 @@ import java.util.List;
 public interface CommentService {
     public Comment getCommentbyId(int id);
     public List<Comment> getCommentbyServerId(int serverid);
+    public Comment getCommentbyOrderId(int orderid);
+    //public List<Comment> getAllComment();
 }

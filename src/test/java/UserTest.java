@@ -1,3 +1,4 @@
+import bit.facade.OrderFacade;
 import bit.model.*;
 import bit.service.*;
 import com.alibaba.fastjson.JSON;
@@ -22,11 +23,13 @@ public class UserTest {
     private OrderService orderService;
     @Autowired
     private TrainService trainService;
+    @Autowired
+    private OrderFacade orderFacade;
     @Test
     public void test1() {
       //  List<Server> user = serverService.getCommentbyServerId(serverService.logIn("12321232321",""));
       //  System.out.println(JSON.toJSONString(user.get(0)));
-        List<Comment> order = commentService.getCommentbyServerId(1);
+        List<Order> order = orderFacade.showClientOrderbyCid(1);
         System.out.println(JSON.toJSONString(order));
 
 //        Train train = trainService.getOrderbyTrainId(1);

@@ -18,4 +18,6 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     List<Comment> selectCommentbyServerId(int serverid);
+
+    Comment selectCommentbyOrderId(int orderid);
 }

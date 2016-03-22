@@ -25,4 +25,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getCommentbyServerId(int serverid) {
         return this.commentMapper.selectCommentbyServerId(serverid);
     }
+
+    @Override
+    public Comment getCommentbyOrderId(int orderid) {
+        return this.commentMapper.selectCommentbyOrderId(orderid);
+    }
 }

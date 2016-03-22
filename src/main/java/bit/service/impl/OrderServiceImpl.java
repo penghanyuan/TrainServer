@@ -22,11 +22,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getCommentbyOrderId(int orderid) {
-        return this.orderMapper.selectCommentbyOrderId(orderid);
-    }
-
-    @Override
     public List<Order> getOrderbyClientId(int clentid) {
         return this.orderMapper.selectOrderbyClientId(clentid);
     }
@@ -41,8 +36,9 @@ public class OrderServiceImpl implements OrderService {
         return this.orderMapper.selectOrderbyStatus(status);
     }
 
+
     @Override
-    public Order getTrainbyOrderId(int orderid) {
-        return this.orderMapper.selectTrainbyOrderId(orderid);
+    public List<Order> getOrderbyTrainId(int trainid) {
+        return this.orderMapper.selectOrderbyTrainId(trainid);
     }
 }

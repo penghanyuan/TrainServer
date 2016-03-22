@@ -23,6 +23,12 @@ public class ServerServiceImpl implements ServerService {
     public int logIn(String tel, String psw) {
         Server server;
         server = this.serverMapper.selectByUserName(tel);
-        return server.getServerId();
+        if(server.getServerPassword().equals(psw)) {
+            return server.getServerId();
+        }
+        else
+        {
+            return -1;
+        }
     }
 }

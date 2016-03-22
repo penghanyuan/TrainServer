@@ -332,4 +332,12 @@ FROM `torder` INNER JOIN `comment` ON `torder`.order_id = `comment`.comm_orderid
         FROM `torder`
         where order_server = #{serverid,jdbcType=INTEGER}
     </select>
+
+
+    <select id="selectOrderbyTrainId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from torder
+        where order_trip = #{trainid,jdbcType=INTEGER}
+    </select>
 </mapper>
