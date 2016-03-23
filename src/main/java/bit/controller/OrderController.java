@@ -25,15 +25,45 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     OrderFacade orderFacade;
-    @RequestMapping("/{clientid}/showOrderbyCid")
+    @RequestMapping("/{clientid}/showAllClientOrder")
     @ResponseBody
-    public Map<String,Object> showOrderbyCid(@PathVariable int clientid, HttpServletRequest request) {
+    public Map<String,Object> showAllClientOrder(@PathVariable int clientid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
         List<Order> orders = this.orderFacade.showClientOrderbyClientid(clientid);
         if(orders!=null)
         {
             rmap.put("status",1);
             rmap.put("data",orders);
+        }
+        else {
+            rmap.put("status",0);
+        }
+        return rmap;
+    }
+    @RequestMapping("/{serverid}/showAllServerOrder")
+    @ResponseBody
+    public Map<String,Object> showAllServerOrder(@PathVariable int serverid, HttpServletRequest request) {
+        Map<String,Object> rmap = new HashMap<String, Object>();
+        List<Order> orders = this.orderFacade.showServerOrderbyServerid(serverid);
+        if(orders!=null)
+        {
+            rmap.put("status",1);
+            rmap.put("data",orders);
+        }
+        else {
+            rmap.put("status",0);
+        }
+        return rmap;
+    }
+    @RequestMapping("/{orderid}/showOrderDetail")
+    @ResponseBody
+    public Map<String,Object> showOrderDetail(@PathVariable int orderid, HttpServletRequest request) {
+        Map<String,Object> rmap = new HashMap<String, Object>();
+        Order order = this.orderFacade.showOrderDetail(orderid);
+        if(order!=null)
+        {
+            rmap.put("status",1);
+            rmap.put("data",order);
         }
         else {
             rmap.put("status",0);

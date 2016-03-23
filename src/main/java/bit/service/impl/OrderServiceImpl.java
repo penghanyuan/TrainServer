@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrderbyServerId(int serverid) {
-        return this.orderMapper.selectOrderbyServertId(serverid);
+        return this.orderMapper.selectOrderbyServerId(serverid);
     }
 
     @Override

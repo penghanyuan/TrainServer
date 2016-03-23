@@ -32,6 +32,6 @@ public interface OrderMapper {
 
     List<Order> selectOrderbyClientId(int clientid);
 
-    List<Order> selectOrderbyServertId(int serverid);
+    List<Order> selectOrderbyServerId(int serverid);
     List<Order> selectOrderbyTrainId(int orderid);
 }
