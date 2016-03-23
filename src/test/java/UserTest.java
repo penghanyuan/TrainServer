@@ -29,7 +29,7 @@ public class UserTest {
     public void test1() {
       //  List<Server> user = serverService.getCommentbyServerId(serverService.logIn("12321232321",""));
       //  System.out.println(JSON.toJSONString(user.get(0)));
-        List<Order> order = orderFacade.showClientOrderbyCid(1);
+        List<Order> order = orderFacade.showClientOrderbyClientid(1);
         System.out.println(JSON.toJSONString(order));
 
 //        Train train = trainService.getOrderbyTrainId(1);

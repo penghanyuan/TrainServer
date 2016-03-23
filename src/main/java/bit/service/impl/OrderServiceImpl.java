@@ -41,4 +41,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrderbyTrainId(int trainid) {
         return this.orderMapper.selectOrderbyTrainId(trainid);
     }
+
+    @Override
+    public int createOrder(Order order) {
+        return this.orderMapper.insert(order);
+    }
 }

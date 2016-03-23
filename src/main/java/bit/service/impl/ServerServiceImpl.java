@@ -18,6 +18,10 @@ public class ServerServiceImpl implements ServerService {
     @Autowired
     private ServerMapper serverMapper;
 
+    @Override
+    public Server getServerbyId(int id) {
+        return this.serverMapper.selectByPrimaryKey(id);
+    }
 
     @Override
     public int logIn(String tel, String psw) {

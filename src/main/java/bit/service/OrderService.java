@@ -16,6 +16,7 @@ public interface OrderService {
     public List<Order> getOrderbyClientId(int clentid);
     public List<Order> getOrderbyServerId(int serverid);
     public List<Order> getOrderbyTrainId(int trainid);
+    public int createOrder(Order order);
 
 }
 

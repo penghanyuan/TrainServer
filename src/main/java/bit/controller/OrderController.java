@@ -1,5 +1,6 @@
 package bit.controller;
 
+import bit.facade.OrderFacade;
 import bit.model.Order;
 import bit.model.Train;
 import bit.service.OrderService;
@@ -23,22 +24,12 @@ import java.util.Map;
 @RequestMapping("/orderController")
 public class OrderController {
     @Autowired
-    OrderService orderService;
-    @Autowired
-    TrainService trainService;
+    OrderFacade orderFacade;
     @RequestMapping("/{clientid}/showOrderbyCid")
     @ResponseBody
     public Map<String,Object> showOrderbyCid(@PathVariable int clientid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
-        List<Order> orders = this.orderService.getOrderbyClientId(clientid);
-        Train train = new Train();
-        for(int i = 0; i < orders.size(); i++)
-        {
-            int trainid = (orders.get(i)).getOrderTrip();
-            train = trainService.getTrainbyId(trainid);
-            orders.get(i).setTrain(train);
-            //System.out.println(list.get(i));
-        }
+        List<Order> orders = this.orderFacade.showClientOrderbyClientid(clientid);
         if(orders!=null)
         {
             rmap.put("status",1);

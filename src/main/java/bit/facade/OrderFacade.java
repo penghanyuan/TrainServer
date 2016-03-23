@@ -11,5 +11,7 @@ import java.util.List;
 
 public interface OrderFacade {
     public List<Order> showClientOrderbyClientid(int clientid);
-    public List<Order> showClientOrderbyServerid(int clientid);
+    public List<Order> showServerOrderbyServerid(int serverid);
+    public Order showOrderDetail(int orderid);
+    public int createNewOrder(Order order);
 }
