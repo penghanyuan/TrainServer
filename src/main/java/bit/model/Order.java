@@ -27,8 +27,6 @@ public class Order {
     private Integer orderTrip;
 
 
-    private List<Comment> comments;
-
     private Train train;
 
     private Client client;
@@ -59,9 +57,6 @@ public class Order {
         this.train = train;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
 
     public List<Order> orders;
 
@@ -73,9 +68,6 @@ public class Order {
         this.orders = orders;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public Integer getOrderId() {
         return orderId;

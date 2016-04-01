@@ -14,4 +14,5 @@ public interface OrderFacade {
     public List<Order> showServerOrderbyServerid(int serverid);
     public Order showOrderDetail(int orderid);
     public int createNewOrder(Order order);
+    public String verfiyOrder(int trainid);
 }

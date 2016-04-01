@@ -1,8 +1,9 @@
 import bit.facade.OrderFacade;
+import bit.facade.TrainFacade;
+import bit.function.MyFunction;
 import bit.model.*;
 import bit.service.*;
 import com.alibaba.fastjson.JSON;
-import org.aspectj.weaver.ast.Or;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,6 +19,8 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-mybatis.xml"})
 public class UserTest {
     @Autowired
+    TrainFacade trainFacade;
+    @Autowired
     private CommentService commentService;
     @Autowired
     private OrderService orderService;
@@ -25,12 +28,15 @@ public class UserTest {
     private TrainService trainService;
     @Autowired
     private OrderFacade orderFacade;
+    @Autowired
+    private MyFunction myFunction;
     @Test
     public void test1() {
       //  List<Server> user = serverService.getCommentbyServerId(serverService.logIn("12321232321",""));
       //  System.out.println(JSON.toJSONString(user.get(0)));
-        Order order = orderFacade.showOrderDetail(1);
+        List<Train> order = trainFacade.showClientTrainbyClientid(1);
         System.out.println(JSON.toJSONString(order));
+
 
 //        Train train = trainService.getOrderbyTrainId(1);
 //        System.out.println(JSON.toJSONString(train));

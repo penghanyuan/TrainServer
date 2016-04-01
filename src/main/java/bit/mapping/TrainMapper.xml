@@ -115,42 +115,48 @@
     where train_id = #{trainId,jdbcType=INTEGER}
   </update>
 
-  <resultMap type="bit.model.Train" id="ServerResultMap" extends="BaseResultMap">
-    <collection property="orders" ofType="bit.model.Order">
-      <id column="order_id" property="orderId" jdbcType="INTEGER" />
-      <result column="order_num" property="orderNum" jdbcType="INTEGER" />
-      <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
-      <result column="order_type" property="orderType" jdbcType="INTEGER" />
-      <result column="order_server" property="orderServer" jdbcType="INTEGER" />
-      <result column="order_ctime" property="orderCtime" jdbcType="TIMESTAMP" />
-      <result column="order_rtime" property="orderRtime" jdbcType="TIMESTAMP" />
-      <result column="order_ftime" property="orderFtime" jdbcType="TIMESTAMP" />
-      <result column="order_money" property="orderMoney" jdbcType="REAL" />
-      <result column="order_client" property="orderClient" jdbcType="INTEGER" />
-      <result column="order_trip" property="orderTrip" jdbcType="INTEGER" />
-    </collection>
-  </resultMap>
+  <!--<resultMap type="bit.model.Train" id="ServerResultMap" extends="BaseResultMap">-->
+    <!--<collection property="orders" ofType="bit.model.Order">-->
+      <!--<id column="order_id" property="orderId" jdbcType="INTEGER" />-->
+      <!--<result column="order_num" property="orderNum" jdbcType="INTEGER" />-->
+      <!--<result column="order_status" property="orderStatus" jdbcType="INTEGER" />-->
+      <!--<result column="order_type" property="orderType" jdbcType="INTEGER" />-->
+      <!--<result column="order_server" property="orderServer" jdbcType="INTEGER" />-->
+      <!--<result column="order_ctime" property="orderCtime" jdbcType="TIMESTAMP" />-->
+      <!--<result column="order_rtime" property="orderRtime" jdbcType="TIMESTAMP" />-->
+      <!--<result column="order_ftime" property="orderFtime" jdbcType="TIMESTAMP" />-->
+      <!--<result column="order_money" property="orderMoney" jdbcType="REAL" />-->
+      <!--<result column="order_client" property="orderClient" jdbcType="INTEGER" />-->
+      <!--<result column="order_trip" property="orderTrip" jdbcType="INTEGER" />-->
+    <!--</collection>-->
+  <!--</resultMap>-->
 
-  <select id="selectOrderbyTrainId" resultMap="ServerResultMap" parameterType="java.lang.Integer" >
-  SELECT torder.order_id,
-	torder.order_num,
-	torder.order_status,
-	torder.order_type,
-	torder.order_server,
-	torder.order_ctime,
-	torder.order_rtime,
-	torder.order_ftime,
-	torder.order_money,
-	torder.order_client,
-	torder.order_trip,
-	train.train_id,
-	train.train_num,
-	train.train_date,
-	train.train_carriage,
-	train.train_from,
-	train.train_to,
-	train.train_client
-FROM torder INNER JOIN train ON torder.order_trip = train.train_id
-    where train_id = #{trainid,jdbcType=INTEGER}
+  <!--<select id="selectOrderbyTrainId" resultMap="ServerResultMap" parameterType="java.lang.Integer" >-->
+  <!--SELECT torder.order_id,-->
+	<!--torder.order_num,-->
+	<!--torder.order_status,-->
+	<!--torder.order_type,-->
+	<!--torder.order_server,-->
+	<!--torder.order_ctime,-->
+	<!--torder.order_rtime,-->
+	<!--torder.order_ftime,-->
+	<!--torder.order_money,-->
+	<!--torder.order_client,-->
+	<!--torder.order_trip,-->
+	<!--train.train_id,-->
+	<!--train.train_num,-->
+	<!--train.train_date,-->
+	<!--train.train_carriage,-->
+	<!--train.train_from,-->
+	<!--train.train_to,-->
+	<!--train.train_client-->
+<!--FROM torder INNER JOIN train ON torder.order_trip = train.train_id-->
+    <!--where train_id = #{trainid,jdbcType=INTEGER}-->
+  <!--</select>-->
+  <select id="selectTrainbyClientid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from train
+    where train_client = #{clientid,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -18,7 +18,7 @@
         order_id, order_num, order_status, order_type, order_server, order_ctime, order_rtime,
         order_ftime, order_money, order_client, order_trip
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
         from torder
@@ -28,7 +28,7 @@
         delete from torder
         where order_id = #{orderId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="bit.model.Order" >
+    <insert id="insert" parameterType="bit.model.Order" useGeneratedKeys="true" keyProperty="orderId">
         insert into torder (order_id, order_num, order_status,
         order_type, order_server, order_ctime,
         order_rtime, order_ftime, order_money,
@@ -38,7 +38,7 @@
         #{orderRtime,jdbcType=TIMESTAMP}, #{orderFtime,jdbcType=TIMESTAMP}, #{orderMoney,jdbcType=REAL},
         #{orderClient,jdbcType=INTEGER}, #{orderTrip,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="bit.model.Order" >
+    <insert id="insertSelective" parameterType="bit.model.Order" useGeneratedKeys="true" keyProperty="orderId">
         insert into torder
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="orderId != null" >

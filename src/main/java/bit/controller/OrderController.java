@@ -1,18 +1,23 @@
 package bit.controller;
 
 import bit.facade.OrderFacade;
+import bit.function.MyFunction;
+import bit.jsonmodel.JsonOrder;
 import bit.model.Order;
 import bit.model.Train;
+import bit.model.test;
 import bit.service.OrderService;
 import bit.service.TrainService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,15 +30,18 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     OrderFacade orderFacade;
+    @Autowired
+    MyFunction myFunction;
     @RequestMapping("/{clientid}/showAllClientOrder")
     @ResponseBody
     public Map<String,Object> showAllClientOrder(@PathVariable int clientid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
         List<Order> orders = this.orderFacade.showClientOrderbyClientid(clientid);
-        if(orders!=null)
+        List<JsonOrder> jsonOrders = myFunction.formatOrder(orders);
+        if(jsonOrders!=null)
         {
             rmap.put("status",1);
-            rmap.put("data",orders);
+            rmap.put("data",jsonOrders);
         }
         else {
             rmap.put("status",0);
@@ -45,10 +53,11 @@ public class OrderController {
     public Map<String,Object> showAllServerOrder(@PathVariable int serverid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
         List<Order> orders = this.orderFacade.showServerOrderbyServerid(serverid);
-        if(orders!=null)
+        List<JsonOrder> jsonOrders = myFunction.formatOrder(orders);
+        if(jsonOrders!=null)
         {
             rmap.put("status",1);
-            rmap.put("data",orders);
+            rmap.put("data",jsonOrders);
         }
         else {
             rmap.put("status",0);
@@ -69,5 +78,18 @@ public class OrderController {
             rmap.put("status",0);
         }
         return rmap;
+    }
+
+    @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer createOrder(@RequestBody JSONObject jsonObject) {
+        return orderFacade.createNewOrder(myFunction.formatOrder(jsonObject));
+    }
+
+    @RequestMapping(value = "/verfiyOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public String verfiyOrder(@RequestBody JSONObject jsonObject) {
+        String t= this.orderFacade.verfiyOrder(jsonObject.getInteger("trainid"));
+        return t;
     }
 }

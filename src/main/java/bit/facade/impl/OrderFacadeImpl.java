@@ -38,9 +38,7 @@ public class OrderFacadeImpl implements OrderFacade {
         {
             for(int i = 0; i < orders.size(); i++)
             {
-                int trainid = (orders.get(i)).getOrderTrip();
-                train = trainService.getTrainbyId(trainid);
-                orders.get(i).setTrain(train);
+                orders.set(i,this.showOrderDetail(orders.get(i).getOrderId()));
             }
             return orders;
         }
@@ -51,14 +49,11 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public List<Order> showServerOrderbyServerid(int serverid) {
         List<Order> orders = this.orderService.getOrderbyServerId(serverid);
-        Train train = new Train();
         if(orders!=null)
         {
             for(int i = 0; i < orders.size(); i++)
             {
-                int trainid = (orders.get(i)).getOrderTrip();
-                train = trainService.getTrainbyId(trainid);
-                orders.get(i).setTrain(train);
+                orders.set(i,this.showOrderDetail(orders.get(i).getOrderId()));
             }
             return orders;
         }
@@ -71,11 +66,17 @@ public class OrderFacadeImpl implements OrderFacade {
         Order order = this.orderService.getOrderbyId(orderid);
         if(order!=null) {
             Client client = this.clientService.getClientbyId(order.getOrderClient());
-            Server server = this.serverService.getServerbyId(order.getOrderServer());
-            Train train = this.trainService.getTrainbyId(order.getOrderTrip());
+            if(order.getOrderServer()!=null) {
+                Server server = this.serverService.getServerbyId(order.getOrderServer());
+                order.setServer(server);
+            }
+            if(order.getOrderTrip()!=null) {
+                Train train = this.trainService.getTrainbyId(order.getOrderTrip());
+                order.setTrain(train);
+            }
             order.setClient(client);
-            order.setServer(server);
-            order.setTrain(train);
+
+
             return order;
         }
         else
@@ -85,5 +86,23 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public int createNewOrder(Order order) {
         return this.orderService.createOrder(order);
+    }
+
+    @Override
+    public String verfiyOrder(int trainid) {
+        List<Order> orders = this.orderService.getOrderbyTrainId(trainid);
+        switch (orders.size()){
+            case 0:
+                return "none";
+            case 1:
+                if(orders.get(0).getOrderType()==0)
+                    return "jiezhan";
+                else
+                    return "songzhan";
+            case 2:
+                return "all";
+            default:
+                return "";
+        }
     }
 }
