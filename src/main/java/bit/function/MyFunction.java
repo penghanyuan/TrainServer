@@ -1,10 +1,14 @@
 package bit.function;
 
 import bit.jsonmodel.JsonOrder;
+import bit.jsonmodel.JsonTrain;
 import bit.model.Order;
+import bit.model.Server;
+import bit.model.Train;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.poi.ss.formula.functions.T;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Component;
 
@@ -108,5 +112,37 @@ public class MyFunction {
         o.setOrderMoney((float) 23);
         o.setOrderCtime(new Date());
         return o;
+    }
+    public List<JsonTrain> fomartTrain(List<Train> trains) {
+        List<JsonTrain> jsonTrains= new ArrayList<JsonTrain>();
+        String formatType = "yyyy年MM月dd日 HH时mm分ss秒";
+        SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
+        if(trains==null)
+            return null;
+        for(int i = 0;i<trains.size();i++)
+        {
+            JsonTrain jst  = new JsonTrain();
+            jst.setTrainClient(trains.get(i).getClient().getClientName());
+            jst.setTrainDate(sdf.format(trains.get(i).getTrainDate()));
+            jst.setTrainFrom(changeNumtoTrain(trains.get(i).getTrainFrom()));
+            jst.setTrainTo(changeNumtoTrain(trains.get(i).getTrainTo()));
+            jst.setTrainId(trains.get(i).getTrainId());
+            jst.setTrainNum(trains.get(i).getTrainNum());
+            jsonTrains.add(i,jst);
+        }
+
+        return jsonTrains;
+
+    }
+    public Server verfiyServer(JSONObject jsonObject){
+        Server server = new Server();
+        server.setServerName(jsonObject.getString("servername"));
+        server.setServerPassword(jsonObject.getString("password"));
+        server.setServerPid(jsonObject.getString("userpid"));
+        server.setServerStation(this.changeTraintoNum(jsonObject.getString("userstation")));
+        server.setServerTel(jsonObject.getString("username"));
+        server.setServerNum("1111123");
+        server.setServerPhoto("url");
+        return server;
     }
 }

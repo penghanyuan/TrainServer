@@ -27,12 +27,21 @@ public class ServerServiceImpl implements ServerService {
     public int logIn(String tel, String psw) {
         Server server;
         server = this.serverMapper.selectByUserName(tel);
-        if(server.getServerPassword().equals(psw)) {
-            return server.getServerId();
+        if(server!=null) {
+            if (server.getServerPassword().equals(psw)) {
+                return server.getServerId();
+            } else {
+                return -1;
+            }
         }
-        else
-        {
+        else {
             return -1;
         }
+    }
+
+    @Override
+    public int signUp(Server server) {
+        serverMapper.insert(server);
+        return server.getServerId();
     }
 }

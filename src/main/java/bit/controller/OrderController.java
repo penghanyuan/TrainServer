@@ -10,6 +10,7 @@ import bit.service.OrderService;
 import bit.service.TrainService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.log4j.Logger;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/orderController")
 public class OrderController {
+    private static List<String> requestQueue = new ArrayList<String>();
+    private static boolean flag =true;
     @Autowired
     OrderFacade orderFacade;
     @Autowired
@@ -91,5 +95,28 @@ public class OrderController {
     public String verfiyOrder(@RequestBody JSONObject jsonObject) {
         String t= this.orderFacade.verfiyOrder(jsonObject.getInteger("trainid"));
         return t;
+    }
+
+
+    @RequestMapping(value = "{serverid}/setQueue", method = RequestMethod.GET)
+    @ResponseBody
+    public String setQueue(@PathVariable String serverid){
+       // requestQueue.add(jsonObject.getString("serverid"));
+
+        synchronized(this){
+            requestQueue.add(serverid);
+            System.out.println("now is"+requestQueue.size());
+            System.out.println(JSON.toJSONString(requestQueue));
+            if(flag)
+            {
+                requestQueue.get(0);
+                flag = false;
+                //可以下单
+            }
+            else {
+                //不能下单
+            }
+        }
+        return "";
     }
 }

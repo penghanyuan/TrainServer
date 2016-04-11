@@ -3,6 +3,7 @@ package bit.controller;
 import bit.facade.TrainFacade;
 import bit.function.MyFunction;
 import bit.jsonmodel.JsonOrder;
+import bit.jsonmodel.JsonTrain;
 import bit.model.Order;
 import bit.model.Train;
 import org.apache.poi.ss.formula.functions.T;
@@ -31,7 +32,7 @@ public class TrainController {
     @ResponseBody
     public Map<String,Object> showAllClientTrain(@PathVariable int clientid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
-        List<Train> trains = this.trainFacade.showClientTrainbyClientid(clientid);
+        List<JsonTrain> trains = myFunction.fomartTrain(this.trainFacade.showClientTrainbyClientid(clientid));
         if(trains!=null)
         {
             rmap.put("status",1);

@@ -27,7 +27,7 @@
     delete from server
     where server_id = #{serverId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="bit.model.Server" >
+  <insert id="insert" parameterType="bit.model.Server" useGeneratedKeys="true" keyProperty="serverId">
     insert into server (server_id, server_name, server_tel, 
       server_pid, server_num, server_password, 
       server_code, server_point, server_photo, 
@@ -37,7 +37,7 @@
       #{serverCode,jdbcType=VARCHAR}, #{serverPoint,jdbcType=REAL}, #{serverPhoto,jdbcType=VARCHAR}, 
       #{serverStation,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="bit.model.Server" >
+  <insert id="insertSelective" parameterType="bit.model.Server" useGeneratedKeys="true" keyProperty="serverId">
     insert into server
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="serverId != null" >

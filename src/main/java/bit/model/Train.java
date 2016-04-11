@@ -18,15 +18,16 @@ public class Train {
 
     private Integer trainClient;
 
-    private List<Order> orders;
+    private Client client;
 
-    public List<Order> getOrders() {
-        return orders;
+    public Client getClient() {
+        return client;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setClient(Client client) {
+        this.client = client;
     }
+
 
     public Integer getTrainId() {
         return trainId;

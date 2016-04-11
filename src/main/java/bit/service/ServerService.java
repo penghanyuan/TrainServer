@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ServerService {
     public Server getServerbyId(int id);
-//    public int signUp(Server server);
+    public int signUp(Server server);
         public int logIn(String tel,String psw);
 }
