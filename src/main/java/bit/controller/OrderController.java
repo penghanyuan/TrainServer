@@ -2,6 +2,7 @@ package bit.controller;
 
 import bit.facade.OrderFacade;
 import bit.function.MyFunction;
+import bit.function.MyPush;
 import bit.jsonmodel.JsonOrder;
 import bit.model.Order;
 import bit.model.Train;
@@ -19,10 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by penghanyuan on 16/3/21.
@@ -32,10 +31,13 @@ import java.util.Map;
 public class OrderController {
     private static List<String> requestQueue = new ArrayList<String>();
     private static boolean flag =true;
+    private static String oldoid = null;
     @Autowired
     OrderFacade orderFacade;
     @Autowired
     MyFunction myFunction;
+    @Autowired
+    MyPush myPush;
     @RequestMapping("/{clientid}/showAllClientOrder")
     @ResponseBody
     public Map<String,Object> showAllClientOrder(@PathVariable int clientid, HttpServletRequest request) {
@@ -73,10 +75,11 @@ public class OrderController {
     public Map<String,Object> showOrderDetail(@PathVariable int orderid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
         Order order = this.orderFacade.showOrderDetail(orderid);
+
         if(order!=null)
         {
             rmap.put("status",1);
-            rmap.put("data",order);
+            rmap.put("data", myFunction.formatOrder(order));
         }
         else {
             rmap.put("status",0);
@@ -87,9 +90,26 @@ public class OrderController {
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
     @ResponseBody
     public Integer createOrder(@RequestBody JSONObject jsonObject) {
-        return orderFacade.createNewOrder(myFunction.formatOrder(jsonObject));
-    }
+        Integer oid = orderFacade.createNewOrder(myFunction.formatOrder(jsonObject));
+        try {
+            myPush.push(oid);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        return oid;
+    }
+//    @RequestMapping("/test")
+//    @ResponseBody
+//    public void test() {
+//
+//
+//        try {
+//          myPush.push();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     @RequestMapping(value = "/verfiyOrder", method = RequestMethod.POST)
     @ResponseBody
     public String verfiyOrder(@RequestBody JSONObject jsonObject) {
@@ -98,25 +118,55 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "{serverid}/setQueue", method = RequestMethod.GET)
+    @RequestMapping(value = "{serverid}/{orderid}/setQueue", method = RequestMethod.GET)
     @ResponseBody
-    public String setQueue(@PathVariable String serverid){
+    public String setQueue(@PathVariable String serverid,@PathVariable String orderid){
        // requestQueue.add(jsonObject.getString("serverid"));
 
         synchronized(this){
+            if(oldoid!=null){
+                if(!oldoid.equals(orderid)){//非重复订单,新订单
+                    flag=true;
+                    oldoid = orderid;
+                    requestQueue.clear();
+                }
+            }else {//第一个订单
+                flag = true;
+                oldoid = orderid;
+            }
             requestQueue.add(serverid);
-            System.out.println("now is"+requestQueue.size());
+
+            System.out.println("now is "+oldoid);
             System.out.println(JSON.toJSONString(requestQueue));
             if(flag)
             {
-                requestQueue.get(0);
                 flag = false;
                 //可以下单
+                this.setOrderServer(requestQueue.get(0),orderid);
             }
             else {
                 //不能下单
+                System.out.println("error");
             }
         }
         return "";
+    }
+
+    private int setOrderServer(String serverid,String orderid){
+        Order order = new Order();
+        order.setOrderId(Integer.valueOf(orderid));
+        order.setOrderServer(Integer.valueOf(serverid));
+        order.setOrderRtime(new Date());
+        return orderFacade.setServer(order);
+    }
+
+    @RequestMapping(value = "{status}/{orderid}/changeStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public int changeStatus(@PathVariable String status,@PathVariable String orderid) {
+        Order order = new Order();
+        order.setOrderId(Integer.valueOf(orderid));
+        order.setOrderStatus(Integer.valueOf(status));
+        order.setOrderFtime(new Date());
+        return orderFacade.changeStatus(order);
     }
 }

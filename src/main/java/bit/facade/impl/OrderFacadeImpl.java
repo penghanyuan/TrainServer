@@ -105,4 +105,14 @@ public class OrderFacadeImpl implements OrderFacade {
                 return "";
         }
     }
+
+    @Override
+    public int setServer(Order order) {
+        return orderService.uptadeServer(order);
+    }
+
+    @Override
+    public int changeStatus(Order order) {
+        return orderService.uptadeServer(order);
+    }
 }

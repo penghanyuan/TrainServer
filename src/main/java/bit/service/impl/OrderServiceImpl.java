@@ -45,6 +45,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int createOrder(Order order) {
         this.orderMapper.insert(order);
+        order.setOrderNum(1000000+order.getOrderId());
+        orderMapper.updateByPrimaryKeySelective(order);
         return order.getOrderId();
+    }
+
+    @Override
+    public Integer uptadeServer(Order order) {
+        return orderMapper.updateByPrimaryKeySelective(order);
     }
 }

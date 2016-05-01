@@ -1,6 +1,7 @@
 package bit.facade;
 
 import bit.model.Order;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface OrderFacade {
     public Order showOrderDetail(int orderid);
     public int createNewOrder(Order order);
     public String verfiyOrder(int trainid);
+    public int setServer(Order order);
+    public int changeStatus(Order order);
 }

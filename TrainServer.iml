@@ -85,5 +85,10 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.5.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.gexin.platform:gexin-rp-sdk-http:4.0.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.gexin.platform:gexin-rp-sdk-base:4.0.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-all:1.8.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.gexin.platform:gexin-rp-sdk-template:4.0.0.3" level="project" />
   </component>
 </module>

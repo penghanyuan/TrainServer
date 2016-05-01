@@ -71,7 +71,7 @@ public class MyFunction {
         List<JsonOrder> jsonOrders = new ArrayList<JsonOrder>();
 
         Order o = new Order();
-        String formatType = "yyyy年MM月dd日 HH时mm分ss秒";
+        String formatType = "yyyy年MM月dd日 ";
         SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
         for(int i = 0;i<orders.size();i++)
         {
@@ -82,16 +82,18 @@ public class MyFunction {
             if(o.getServer()!=null)
                 jo.setOrderServer(o.getServer().getServerName());
             if(o.getServer()!=null)
+            {
                 jo.setServerTel(o.getServer().getServerTel());
+                jo.setServerName(o.getServer().getServerName());
+            }
 
             jo.setTrainClient(o.getClient().getClientName());
             jo.setOrderCtime(sdf.format(o.getOrderCtime()));
-
+            jo.setTrainNum(o.getTrain().getTrainNum());
             jo.setTrainDate(sdf.format(o.getTrain().getTrainDate()));
             jo.setOrderId(o.getOrderId().toString());
             jo.setOrderMoney(o.getOrderMoney());
             jo.setOrderNum(o.getOrderNum().toString());
-
             jo.setOrderStatus(o.getOrderStatus().toString());
             jo.setTrainFrom(changeNumtoTrain(o.getTrain().getTrainFrom()));
             jo.setTrainTo(changeNumtoTrain(o.getTrain().getTrainTo()));
@@ -113,9 +115,43 @@ public class MyFunction {
         o.setOrderCtime(new Date());
         return o;
     }
+    public JsonOrder formatOrder(Order order){
+
+
+
+        Order o = order;
+        String formatType = "yyyy年MM月dd日 HH时mm分ss秒";
+        SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
+
+            JsonOrder jo = new JsonOrder();
+
+            if(o.getOrderFtime()!=null)
+                jo.setOrderFtime(sdf.format(o.getOrderFtime()));
+            if(o.getServer()!=null)
+                jo.setOrderServer(o.getServer().getServerName());
+            if(o.getServer()!=null)
+                jo.setServerTel(o.getServer().getServerTel());
+
+            jo.setTrainClient(o.getClient().getClientName());
+            jo.setOrderCtime(sdf.format(o.getOrderCtime()));
+
+            jo.setTrainDate(sdf.format(o.getTrain().getTrainDate()));
+            jo.setOrderId(o.getOrderId().toString());
+            jo.setOrderMoney(o.getOrderMoney());
+            jo.setOrderNum(o.getOrderNum().toString());
+            jo.setTrainNum(o.getTrain().getTrainNum());
+            jo.setOrderStatus(o.getOrderStatus().toString());
+            jo.setTrainFrom(changeNumtoTrain(o.getTrain().getTrainFrom()));
+            jo.setTrainTo(changeNumtoTrain(o.getTrain().getTrainTo()));
+            jo.setOrderType(changeNumtoType(o.getOrderType()));
+
+            jo.setOrderId(o.getOrderId().toString());
+
+        return jo;
+    }
     public List<JsonTrain> fomartTrain(List<Train> trains) {
         List<JsonTrain> jsonTrains= new ArrayList<JsonTrain>();
-        String formatType = "yyyy年MM月dd日 HH时mm分ss秒";
+        String formatType = "yyyy年MM月dd日";
         SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
         if(trains==null)
             return null;
@@ -145,4 +181,6 @@ public class MyFunction {
         server.setServerPhoto("url");
         return server;
     }
+
+
 }
