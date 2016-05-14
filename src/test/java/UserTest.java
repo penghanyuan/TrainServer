@@ -30,11 +30,13 @@ public class UserTest {
     private OrderFacade orderFacade;
     @Autowired
     private MyFunction myFunction;
+    @Autowired
+    private ScheduleService scheduleService;
     @Test
     public void test1() {
       //  List<Server> user = serverService.getCommentbyServerId(serverService.logIn("12321232321",""));
       //  System.out.println(JSON.toJSONString(user.get(0)));
-        List<Train> order = trainFacade.showClientTrainbyClientid(1);
+        List<Schedule> order= scheduleService.showSchedule("G123");
         System.out.println(JSON.toJSONString(order));
 
 

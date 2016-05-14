@@ -22,4 +22,14 @@ public class ServerFacadeImpl implements ServerFacade {
     public int logIn(String tel, String psw) {
         return this.serverService.logIn(tel,psw);
     }
+
+    @Override
+    public int setPushCid(String cid, String sid) {
+        return serverService.setServerCode(cid,sid);
+    }
+
+    @Override
+    public Server getSrver(int serverid) {
+        return serverService.getServerbyId(serverid);
+    }
 }

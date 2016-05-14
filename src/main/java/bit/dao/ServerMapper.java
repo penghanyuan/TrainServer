@@ -24,4 +24,6 @@ public interface ServerMapper {
     List<Server> selectOrderbyServerId(int serverId);
 
     List<Server> selectCommentbyServerId(int serverId);
+
+    List<Server> selectByStation(int station);
 }

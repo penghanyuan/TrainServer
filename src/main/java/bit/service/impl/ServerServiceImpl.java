@@ -44,4 +44,17 @@ public class ServerServiceImpl implements ServerService {
         serverMapper.insert(server);
         return server.getServerId();
     }
+
+    @Override
+    public int setServerCode(String servercode,String sid) {
+        Server server = new Server();
+        server.setServerCode(servercode);
+        server.setServerId(Integer.valueOf(sid));
+        return serverMapper.updateByPrimaryKeySelective(server);
+    }
+
+    @Override
+    public List<Server> getServerbyStation(int station) {
+        return serverMapper.selectByStation(station);
+    }
 }

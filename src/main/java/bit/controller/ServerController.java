@@ -4,6 +4,7 @@ import bit.facade.ServerFacade;
 import bit.function.MyFunction;
 import bit.jsonmodel.JsonOrder;
 import bit.model.Order;
+import bit.model.Server;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,5 +38,17 @@ public class ServerController {
         System.out.println(jsonObject);
         int t= this.serverFacade.logIn(jsonObject.getString("username"),jsonObject.getString("password"));
         return t;
+    }
+    @RequestMapping(value = "{serverid}/{clientid}/ServerCode", method = RequestMethod.GET)
+    @ResponseBody
+    public int ServerCode(@PathVariable String serverid,@PathVariable String clientid) {
+        int t = serverFacade.setPushCid(clientid,serverid);
+        return t;
+    }
+    @RequestMapping(value = "{serverid}/GetServer", method = RequestMethod.GET)
+    @ResponseBody
+    public Server GetServer(@PathVariable String serverid) {
+
+        return serverFacade.getSrver(Integer.valueOf(serverid));
     }
 }

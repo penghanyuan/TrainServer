@@ -11,6 +11,7 @@ import bit.service.OrderService;
 import bit.service.TrainService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.IntegerCodec;
 import org.apache.log4j.Logger;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.ObjectFactory;
@@ -90,9 +91,11 @@ public class OrderController {
     @RequestMapping(value = "/createOrder", method = RequestMethod.POST)
     @ResponseBody
     public Integer createOrder(@RequestBody JSONObject jsonObject) {
+
         Integer oid = orderFacade.createNewOrder(myFunction.formatOrder(jsonObject));
         try {
-            myPush.push(oid);
+
+            myPush.push(oid,  myFunction.getAllCid(oid.toString()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +108,7 @@ public class OrderController {
 //
 //
 //        try {
-//          myPush.push();
+//            myPush.push(Integer.valueOf(1));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -156,7 +159,14 @@ public class OrderController {
         Order order = new Order();
         order.setOrderId(Integer.valueOf(orderid));
         order.setOrderServer(Integer.valueOf(serverid));
+        order.setOrderStatus(0);
         order.setOrderRtime(new Date());
+        try {
+            myPush.push(Integer.valueOf(orderid));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        myPush.pushAPN();
         return orderFacade.setServer(order);
     }
 

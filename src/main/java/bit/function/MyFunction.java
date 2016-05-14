@@ -1,15 +1,24 @@
 package bit.function;
 
+import bit.facade.OrderFacade;
+import bit.facade.ServerFacade;
+import bit.facade.TrainFacade;
 import bit.jsonmodel.JsonOrder;
+import bit.jsonmodel.JsonSchedule;
 import bit.jsonmodel.JsonTrain;
 import bit.model.Order;
+import bit.model.Schedule;
 import bit.model.Server;
 import bit.model.Train;
+import bit.service.ScheduleService;
+import bit.service.ServerService;
+import bit.service.TrainService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.poi.ss.formula.functions.T;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -25,6 +34,14 @@ import java.util.Scanner;
  */
 @Component("myFunction")
 public class MyFunction {
+    @Autowired
+    OrderFacade orderFacade;
+    @Autowired
+    ServerService serverService;
+    @Autowired
+    TrainService trainService;
+    @Autowired
+    ScheduleService scheduleService;
     private String fullFileName = "train.json";
     private MyData myData = new MyData();
     public Integer changeTraintoNum(String train){
@@ -85,6 +102,7 @@ public class MyFunction {
             {
                 jo.setServerTel(o.getServer().getServerTel());
                 jo.setServerName(o.getServer().getServerName());
+                jo.setServerId(o.getServer().getServerId().toString());
             }
 
             jo.setTrainClient(o.getClient().getClientName());
@@ -98,7 +116,8 @@ public class MyFunction {
             jo.setTrainFrom(changeNumtoTrain(o.getTrain().getTrainFrom()));
             jo.setTrainTo(changeNumtoTrain(o.getTrain().getTrainTo()));
             jo.setOrderType(changeNumtoType(o.getOrderType()));
-
+//            String trainnum = trainService.getTrainbyId(o.getOrderTrip()).getTrainNum();
+//            jo.setSchedules(scheduleService.showSchedule(trainnum));
             jo.setOrderId(o.getOrderId().toString());
             jsonOrders.add(i,jo);
         }
@@ -182,5 +201,48 @@ public class MyFunction {
         return server;
     }
 
+    public List<String> getAllCid(String orderid){
+        List<String> cids = new ArrayList<String>();
+        int trip =   orderFacade.showOrderDetail(Integer.valueOf(orderid)).getOrderTrip();
+        if(orderFacade.showOrderDetail(Integer.valueOf(orderid)).getOrderType()==0)
+        {
+            int trainto = trainService.getTrainbyId(trip).getTrainTo();
+            List<Server> servers =  serverService.getServerbyStation(trainto);
+            for(int i = 0;i<servers.size();i++)
+            {
+                cids.add(i,servers.get(i).getServerCode());
+            }
+            return cids;
+        }
+        else {
+            int trainfrom = trainService.getTrainbyId(trip).getTrainFrom();
+            List<Server> servers = serverService.getServerbyStation(trainfrom);
+            for (int i = 0; i < servers.size(); i++) {
+                cids.add(i, servers.get(i).getServerCode());
+            }
+            return cids;
+        }
+    }
+
+    public List<JsonSchedule> fomartSchedules(List<Schedule> schedules){
+        List<JsonSchedule> jsonSchedules= new ArrayList<JsonSchedule>();
+        String formatType = "HH:mm";
+        SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
+        if(schedules==null)
+            return null;
+        for(int i = 0;i<schedules.size();i++)
+        {
+            JsonSchedule jst  = new JsonSchedule();
+            jst.setTrainAtime(sdf.format(schedules.get(i).getTrainAtime()));
+
+            jst.setTrainLtime(sdf.format(schedules.get(i).getTrainLtime()));
+            jst.setTrainId(schedules.get(i).getTrainId());
+            jst.setTrainNum(schedules.get(i).getTrainNum());
+            jst.setTrainStation(schedules.get(i).getTrainStation());
+            jsonSchedules.add(i,jst);
+        }
+
+        return jsonSchedules;
+    }
 
 }

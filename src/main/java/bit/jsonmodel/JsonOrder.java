@@ -1,6 +1,9 @@
 package bit.jsonmodel;
 
+import bit.model.Schedule;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by penghanyuan on 16/3/26.
@@ -45,6 +48,26 @@ public class JsonOrder {
     private String serverTel;
 
     private String serverName;
+
+    private String serverId;
+
+    private List<Schedule> schedules;
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
+    }
+
+    public String getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(String serverId) {
+        this.serverId = serverId;
+    }
 
     public String getServerName() {
         return serverName;

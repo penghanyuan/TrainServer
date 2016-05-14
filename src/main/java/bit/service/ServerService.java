@@ -12,5 +12,7 @@ import java.util.List;
 public interface ServerService {
     public Server getServerbyId(int id);
     public int signUp(Server server);
-        public int logIn(String tel,String psw);
+    public int logIn(String tel,String psw);
+    public int setServerCode(String servercode,String sid);
+    public List<Server> getServerbyStation(int station);
 }

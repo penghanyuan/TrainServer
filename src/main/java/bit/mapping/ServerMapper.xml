@@ -232,4 +232,10 @@ FROM `torder` INNER JOIN `server` ON `torder`.order_server = `server`.server_id
     from server
     where server_tel = #{username}
   </select>
+  <select id="selectByStation" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from server
+    where server_station = #{station,jdbcType=INTEGER}
+  </select>
 </mapper>
