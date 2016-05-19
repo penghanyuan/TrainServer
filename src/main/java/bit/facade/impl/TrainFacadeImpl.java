@@ -34,4 +34,9 @@ public class TrainFacadeImpl implements TrainFacade {
         else
             return null;
     }
+
+    @Override
+    public Train showTrainDetail(int trainid) {
+        return trainService.getTrainbyId(trainid);
+    }
 }

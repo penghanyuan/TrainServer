@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface TrainFacade {
     public List<Train> showClientTrainbyClientid(int clientid);
+    public Train showTrainDetail(int trainid);
 }

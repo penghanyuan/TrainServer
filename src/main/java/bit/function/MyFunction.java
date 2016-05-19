@@ -244,5 +244,25 @@ public class MyFunction {
 
         return jsonSchedules;
     }
+    public JsonTrain formatTrain(Train train){
+        Train t = train;
+        String formatType = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf =  new SimpleDateFormat(formatType);
+
+        JsonTrain jo = new JsonTrain();
+
+        if(t.getTrainDate()!=null)
+            jo.setTrainDate(sdf.format(t.getTrainDate()));
+        if(t.getClient()!=null)
+            jo.setTrainClient(t.getClient().getClientName());
+        if(t.getTrainCarriage()!=null)
+            jo.setTrainCarriage(t.getTrainCarriage());
+        jo.setTrainFrom(changeNumtoTrain(t.getTrainFrom()));
+        jo.setTrainId(t.getTrainId());
+        jo.setTrainNum(t.getTrainNum());
+        jo.setTrainTo(changeNumtoTrain(t.getTrainTo()));
+
+        return jo;
+    }
 
 }

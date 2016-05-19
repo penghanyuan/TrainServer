@@ -1,8 +1,10 @@
 package bit.controller;
 
 import bit.facade.OrderFacade;
+import bit.function.MyAndroidPush;
 import bit.function.MyFunction;
 import bit.function.MyPush;
+import bit.function.ServerPush;
 import bit.jsonmodel.JsonOrder;
 import bit.model.Order;
 import bit.model.Train;
@@ -16,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.objenesis.instantiator.android.Android10Instantiator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +42,10 @@ public class OrderController {
     MyFunction myFunction;
     @Autowired
     MyPush myPush;
+    @Autowired
+    ServerPush serverPush;
+    @Autowired
+    MyAndroidPush androidPush;
     @RequestMapping("/{clientid}/showAllClientOrder")
     @ResponseBody
     public Map<String,Object> showAllClientOrder(@PathVariable int clientid, HttpServletRequest request) {
@@ -96,6 +103,7 @@ public class OrderController {
         try {
 
             myPush.push(oid,  myFunction.getAllCid(oid.toString()));
+            serverPush.push(oid);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,6 +185,14 @@ public class OrderController {
         order.setOrderId(Integer.valueOf(orderid));
         order.setOrderStatus(Integer.valueOf(status));
         order.setOrderFtime(new Date());
+        if(status.equals("0"))
+            try{
+                androidPush.push(3);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         return orderFacade.changeStatus(order);
     }
 }

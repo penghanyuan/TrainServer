@@ -43,4 +43,21 @@ public class TrainController {
         }
         return rmap;
     }
+
+    @RequestMapping("/{trainid}/showTrainDetail")
+    @ResponseBody
+    public Map<String,Object> showOrderDetail(@PathVariable int trainid, HttpServletRequest request) {
+        Map<String,Object> rmap = new HashMap<String, Object>();
+        Train train = this.trainFacade.showTrainDetail(trainid);
+
+        if(train!=null)
+        {
+            rmap.put("status",1);
+            rmap.put("data", myFunction.formatTrain(train));
+        }
+        else {
+            rmap.put("status",0);
+        }
+        return rmap;
+    }
 }
