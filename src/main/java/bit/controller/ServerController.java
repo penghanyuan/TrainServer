@@ -23,7 +23,8 @@ import java.util.Map;
 public class ServerController {
     @Autowired
     ServerFacade serverFacade;
-    private MyFunction myFunction = new MyFunction();
+    @Autowired
+    MyFunction myFunction;
     @RequestMapping(value = "/ServerSignUp", method = RequestMethod.POST)
     @ResponseBody
     public int ServerSignUp(@RequestBody JSONObject jsonObject) {

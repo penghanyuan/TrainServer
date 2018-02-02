@@ -46,7 +46,7 @@ public class TrainController {
 
     @RequestMapping("/{trainid}/showTrainDetail")
     @ResponseBody
-    public Map<String,Object> showOrderDetail(@PathVariable int trainid, HttpServletRequest request) {
+    public Map<String,Object> showTrainDetail(@PathVariable int trainid, HttpServletRequest request) {
         Map<String,Object> rmap = new HashMap<String, Object>();
         Train train = this.trainFacade.showTrainDetail(trainid);
 
